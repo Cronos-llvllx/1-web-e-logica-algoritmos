@@ -1,0 +1,125 @@
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+    <meta charset="UTF-8">
+    <title>Proyecto: Lista de Compras</title>
+    <style>
+        /* Estilos básicos para mejorar la presentación */
+        body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        }
+        input, button {
+        padding: 5px;
+        margin: 5px;
+        }
+        ul {
+        list-style-type: none;
+        padding: 0;
+        }
+        li {
+        background-color: #f2f2f2;
+        margin: 5px 0;
+        padding: 5px 10px;
+        }
+    </style>
+    </head>
+    <body>
+    <h1>Lista de Compras</h1>
+    <p>Agrega, elimina y muestra productos en tu lista de compras.</p>
+
+    <!-- Campo de entrada para el producto -->
+    <input type="text" id="productoInput" placeholder="Ingresa un producto" />
+
+    <!-- Botones para agregar, eliminar y mostrar productos -->
+    <button id="agregarBtn">Agregar Producto</button>
+    <button id="eliminarBtn">Eliminar Producto</button>
+    <button id="mostrarBtn">Mostrar Lista</button>
+
+    <h2>Productos en la Lista:</h2>
+    <!-- Aquí se mostrará la lista de compras -->
+    <ul id="listaProductos"></ul>
+
+    <script>
+        // Creamos un arreglo vacío para almacenar los productos de la lista de compras.
+        let listaDeCompras = [];
+
+        // Función para agregar un producto al final del arreglo.
+        // Se usa para evitar duplicados y se utiliza arrow function.
+        const agregarProducto = (producto) => {
+        // Eliminar espacios innecesarios al inicio y final del string.
+        producto = producto.trim();
+        
+        // Verificar que el producto no esté vacío y que no exista ya en la lista.
+        if (producto && !listaDeCompras.includes(producto)) {
+            listaDeCompras.push(producto);
+            alert("Producto agregado: " + producto);
+            mostrarLista(); // Actualizamos la lista en pantalla.
+        } else {
+            // Si está vacío o ya existe, mostramos un mensaje al usuario.
+            if (!producto) {
+            alert("Ingresa un producto válido.");
+            } else {
+            alert("El producto ya se encuentra en la lista.");
+            }
+        }
+        };
+
+        // Función para eliminar un producto del arreglo.
+        const eliminarProducto = (producto) => {
+        producto = producto.trim();
+        // Buscar el índice del producto en el arreglo.
+        const index = listaDeCompras.indexOf(producto);
+        
+        // Si se encuentra el producto, se elimina.
+        if (index !== -1) {
+            listaDeCompras.splice(index, 1);
+            alert("Producto eliminado: " + producto);
+            mostrarLista(); // Actualizamos la lista en pantalla.
+        } else {
+            alert("El producto no existe en la lista.");
+        }
+        };
+
+        // Función para mostrar la lista completa de productos.
+        // Recorre el arreglo y muestra cada producto en un elemento de lista.
+        const mostrarLista = () => {
+        const listaUl = document.getElementById("listaProductos");
+        // Limpiamos la lista antes de volver a mostrarla.
+        listaUl.innerHTML = "";
+        
+        // Iteramos sobre el arreglo y creamos un elemento <li> por cada producto.
+        listaDeCompras.forEach((producto) => {
+            const li = document.createElement("li");
+            li.textContent = producto;
+            listaUl.appendChild(li);
+        });
+        };
+
+        // Obtenemos referencias a los elementos del DOM
+        const inputProducto = document.getElementById("productoInput");
+        const agregarBtn = document.getElementById("agregarBtn");
+        const eliminarBtn = document.getElementById("eliminarBtn");
+        const mostrarBtn = document.getElementById("mostrarBtn");
+
+        // Agregamos un listener al botón "Agregar Producto"
+        agregarBtn.addEventListener("click", () => {
+        const producto = inputProducto.value;
+        agregarProducto(producto);
+        inputProducto.value = ""; // Limpiamos el campo de entrada después de agregar.
+        });
+
+        // Agregamos un listener al botón "Eliminar Producto"
+        eliminarBtn.addEventListener("click", () => {
+        const producto = inputProducto.value;
+        eliminarProducto(producto);
+        inputProducto.value = ""; // Limpiamos el campo de entrada después de eliminar.
+        });
+
+        // Agregamos un listener al botón "Mostrar Lista"
+        mostrarBtn.addEventListener("click", () => {
+        mostrarLista();
+        });
+    </script>
+    </body>
+    </html>
