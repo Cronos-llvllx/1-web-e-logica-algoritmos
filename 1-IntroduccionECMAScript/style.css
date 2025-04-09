@@ -1,0 +1,10 @@
+/* Estilo para cambiar el color del texto al pasar el mouse */
+button:hover {
+    color: blue;
+  }
+  
+  /* Pseudo-elemento para agregar una flecha antes del texto de un botón */
+  button::before {
+    content: "→ ";
+    color: red;
+  }
