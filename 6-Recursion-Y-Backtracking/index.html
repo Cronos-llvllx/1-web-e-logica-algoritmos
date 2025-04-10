@@ -1,11 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Recursión y Backtracking</title>
 </head>
 <body>
-    
+    <h1>Buscar un regalo en la lista</h1>
+    <p>Introduce el nombre del regalo que deseas buscar:</p>
+    <input type="text" id="giftName" placeholder="Escribe el nombre del regalo">
+    <button onclick="searchGift()">Buscar</button>
+    <p id="result"></p>
+
+    <script>
+        // Lista de regalos
+        const gifts = ["Muñeca", "Carro de juguete", "Rompecabezas", "Lego", "Pelota"];
+
+        // Función recursiva para buscar un regalo
+        function findGift(gifts, giftName, index = 0) {
+            // Caso base: Si llegamos al final de la lista
+            if (index === gifts.length) {
+                return `${giftName} no está en la lista.`;
+            }
+
+            // Caso base: Si encontramos el regalo
+            if (gifts[index] === giftName) {
+                return `${giftName} está en la posición ${index}.`;
+            }
+
+            // Llamada recursiva para seguir buscando
+            return findGift(gifts, giftName, index + 1);
+        }
+
+        // Función para manejar la búsqueda desde la interfaz
+        function searchGift() {
+            const giftName = document.getElementById("giftName").value;
+            const result = findGift(gifts, giftName);
+            document.getElementById("result").textContent = result;
+        }
+    </script>
 </body>
 </html>
